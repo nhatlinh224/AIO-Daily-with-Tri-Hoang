@@ -1,41 +1,46 @@
-import numpy as np
+# Ma trận A và Kernel B
+A = [[0, 0, 0],
+     [0, 4, 0],
+     [0, 1, 0]]
+
+B = [[1, 1],
+     [1, 1]]
+
+# Hàm thêm zero padding xung quanh ma trận A
 
 
-def apply_convolution(input_matrix, kernel):
-    # Add zero padding around the input matrix
-    padded_input = np.pad(input_matrix, ((1, 1), (1, 1)),
-                          mode='constant', constant_values=0)
+def add_padding(matrix, pad_width):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    padded_matrix = [[0] * (cols + 2 * pad_width)
+                     for _ in range(rows + 2 * pad_width)]
+    for i in range(rows):
+        for j in range(cols):
+            padded_matrix[i + pad_width][j + pad_width] = matrix[i][j]
+    return padded_matrix
 
-    # Output matrix initialization
-    output_matrix = np.zeros(
-        (padded_input.shape[0] - kernel.shape[0] + 1, padded_input.shape[1] - kernel.shape[1] + 1))
-
-    # Convolution calculation
-    for i in range(output_matrix.shape[0]):
-        for j in range(output_matrix.shape[1]):
-            output_matrix[i, j] = np.sum(
-                padded_input[i:i+kernel.shape[0], j:j+kernel.shape[1]] * kernel)
-
-    return output_matrix
+# Hàm thực hiện phép chập
 
 
-# Input matrix
-input_matrix = np.array([
-    [0, 0, 0, 0],
-    [0, 1, 2, 0],
-    [0, 3, 4, 5],
-    [6, 7, 8, 0]
-])
+def convolve(matrix, kernel):
+    kernel_size = len(kernel)
+    output_rows = len(matrix) - kernel_size + 1
+    output_cols = len(matrix[0]) - kernel_size + 1
+    output = [[0] * output_cols for _ in range(output_rows)]
+    for i in range(output_rows):
+        for j in range(output_cols):
+            for m in range(kernel_size):
+                for n in range(kernel_size):
+                    output[i][j] += matrix[i + m][j + n] * kernel[m][n]
+    return output
 
-# Kernel matrix
-kernel = np.array([
-    [0, 1, 2],
-    [1, 2, 3]
-])
 
-# Apply convolution
-output_matrix = apply_convolution(input_matrix, kernel)
+# Thêm zero padding xung quanh ma trận A
+A_padded = add_padding(A, 1)
 
-# Print the output matrix
-print("Output matrix:")
-print(output_matrix)
+# Thực hiện phép chập
+result = convolve(A_padded, B)
+
+print("Kết quả sau khi chập với Kernel B và Zero Padding:")
+for row in result:
+    print(row)

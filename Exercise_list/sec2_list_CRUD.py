@@ -26,6 +26,7 @@ for x in lst_data:
         break
 
 if contains_divisible_by_2_or_3:
-    for i in range(1, 6):
-        lst_data[-i] = 0  # Update the last 5 elements to 0
+    length = len(lst_data)
+    for i in range(length - 5, length):
+        lst_data[i] = 0  # Update the last 5 elements to 0
 print("Câu 4:", lst_data)  # Expected output: [2, 4, 8, 'a', 10, 0, 0, 0, 0, 0]

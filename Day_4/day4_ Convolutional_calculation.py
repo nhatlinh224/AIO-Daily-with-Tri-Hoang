@@ -1,49 +1,48 @@
-# Hàm tính tích chập (convolution) cho ma trận
-def convolution_2d(matrix, kernel):
-    m, n = len(matrix), len(matrix[0])
-    km, kn = len(kernel), len(kernel[0])
-    output = []
+# Ma trận A và Kernel B
+A = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
 
-    for i in range(m - km + 1):
-        row = []
-        for j in range(n - kn + 1):
-            sum = 0
-            for ki in range(km):
-                for kj in range(kn):
-                    sum += matrix[i + ki][j + kj] * kernel[ki][kj]
-            row.append(sum)
-        output.append(row)
+B = [[2, 4],
+     [1, 3]]
+
+# Hàm thực hiện phép chập
+
+
+def convolve(matrix, kernel):
+    kernel_size = len(kernel)
+    output_rows = len(matrix) - kernel_size + 1
+    output_cols = len(matrix[0]) - kernel_size + 1
+    output = []
+    for i in range(output_rows):
+        new_row = []
+        for j in range(output_cols):
+            sum_value = 0
+            for m in range(kernel_size):
+                for n in range(kernel_size):
+                    sum_value += matrix[i + m][j + n] * kernel[m][n]
+            new_row.append(sum_value)
+        output.append(new_row)
     return output
 
 
-# Ma trận đầu vào A
-matrix_a = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+# Thực hiện phép chập
+result = convolve(A, B)
 
-# Kernel B
-kernel_b = [
-    [2, 4],
-    [4, 3]
-]
-
-# Kernel C
-kernel_c = [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1]
-]
-
-# Tính toán Convolutional cho câu A
-result_a = convolution_2d(matrix_a, kernel_b)
-print("Câu A: Kết quả tích chập của A và Kernel B:")
-for row in result_a:
+# In kết quả
+print("Kết quả sau khi chập với Kernel B:")
+for row in result:
     print(row)
 
-# Tính toán Convolutional cho câu B
-result_b = convolution_2d(matrix_a, kernel_c)
-print("Câu B: Kết quả tích chập của A và Kernel C:")
-for row in result_b:
+# Kernel C
+C = [[1, 1, 1],
+     [0, 0, 0],
+     [1, 1, 1]]
+
+# Thực hiện phép chập
+result_2 = convolve(A, C)
+
+# In kết quả
+print("Kết quả sau khi chập với Kernel C:")
+for row in result_2:
     print(row)

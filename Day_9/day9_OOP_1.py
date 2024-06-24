@@ -4,11 +4,17 @@ from sympy import sqrt
 
 class Point:
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.__x = x
+        self.__y = y
 
     def distance_to_origin(self):
-        return sqrt(self.x**2 + self.y**2)
+        return sqrt(self.__x**2 + self.__y**2)
+
+    def get_x(self):
+        return self.__x
+
+    def get_y(self):
+        return self.__y
 
 
 # Creating two point objects

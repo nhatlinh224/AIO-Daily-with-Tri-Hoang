@@ -1,4 +1,13 @@
 def max_pooling(matrix):
+    """
+    Perform max pooling on a given 2D matrix using a 2x2 kernel.
+
+    Parameters:
+    matrix (list of list of int): The input 2D matrix to apply max pooling on.
+
+    Returns:
+    list of list of int: The max-pooled 2D matrix.
+    """
     # Initialize an empty list to store the pooled values
     pooled_matrix = []
 
@@ -31,6 +40,15 @@ print("Max Pooling Result:", max_pooled_A)
 # Task: Average Pooling - Apply a 2x2 kernel to perform average pooling on a 2D matrix without using NumPy
 
 def average_pooling(matrix):
+    """
+    Perform average pooling on a given 2D matrix using a 2x2 kernel.
+
+    Parameters:
+    matrix (list of list of int): The input 2D matrix to apply average pooling on.
+
+    Returns:
+    list of list of int: The average-pooled 2D matrix.
+    """
     # Initialize an empty list to store the pooled values
     pooled_matrix = []
 
